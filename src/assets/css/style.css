@@ -59,7 +59,9 @@ pre {
  * Remove the gray background on active links in IE 10.
  */
 a {
-  background-color: transparent; }
+  background-color: transparent;
+  text-decoration: none;
+}
 
 /**
  * 1. Remove the bottom border in Chrome 57-
@@ -635,16 +637,22 @@ main {
   z-index: 1;
   color: #EEE5B5;
   padding-bottom: 78px;
-  background: #E1B0B2; }
+  background: #E1B0B2;
+  padding-top: calc(40px + 107px);
+}
   .movie-card--full {
     padding-bottom: 45px;
-    min-height: 100vh; }
+    min-height: 100vh;
+    padding-top: 0;
+  }
 
 .movie-card__hero {
   position: relative;
   z-index: 1;
   min-height: 555px;
-  padding-bottom: 210px; }
+  padding-bottom: 210px;
+  padding-top: calc(40px + 107px);
+}
 
 .movie-card__bg {
   position: absolute;
@@ -910,11 +918,9 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   position: absolute;
-  position: absolute;
+  justify-content: space-between;
   left: 0;
   right: 0;
-  margin-left: auto;
-  margin-right: auto;
   margin: 0 auto;
   display: flex;
   -webkit-box-align: center;
@@ -925,10 +931,6 @@ main {
   margin-right: auto;
   z-index: 2;
   padding: 22px 75px; }
-
-.movie-card {
-  padding-top: calc(40px + 107px);
-}
 
 .page-title {
   margin: 0;
@@ -1376,6 +1378,7 @@ main {
   color: #C9B37E;
   padding: 15px;
   padding-bottom: 70px;
+  padding-top: 150px;
   min-height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;

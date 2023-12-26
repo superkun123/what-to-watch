@@ -1,17 +1,31 @@
+<script setup lang="ts">
+import AvatarUser from '@/components/AvatarUser.vue'
+type Props = {
+  isLogin: boolean
+}
+
+defineProps<Props>()
+</script>
+
 <template>
   <header class="page-header movie-card__head">
-    <div class="logo">
-      <a class="logo__link">
-        <span class="logo__letter logo__letter--1">W</span>
-        <span class="logo__letter logo__letter--2">T</span>
-        <span class="logo__letter logo__letter--3">W</span>
-      </a>
-    </div>
-
-    <div class="user-block">
-      <div class="user-block__avatar">
-        <img src="../assets/img/avatar.jpg" alt="User avatar" width="63" height="63" />
+    <router-link to="/">
+      <div class="logo">
+        <a class="logo__link">
+          <span class="logo__letter logo__letter--1">W</span>
+          <span class="logo__letter logo__letter--2">T</span>
+          <span class="logo__letter logo__letter--3">W</span>
+        </a>
       </div>
-    </div>
+    </router-link>
+
+   <router-link to="/Login">
+     <AvatarUser v-if="isLogin" />
+     <slot v-else>
+       <div class="user-block">
+         <a href="#" class="user-block__link">Sign in</a>
+       </div>
+     </slot>
+   </router-link>
   </header>
 </template>

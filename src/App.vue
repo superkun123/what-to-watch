@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import HomeView from '@/views/HomeView.vue'
 import HeaderMain from '@/layouts/HeaderMain.vue'
+const isLogin:boolean = false;
 </script>
 
 <template>
-  <header-main/>
+  <header-main :isLogin="isLogin"/>
   <router-view>
-    <HomeView/>
   </router-view>
 </template>
