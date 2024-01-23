@@ -1,28 +1,24 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { useActiveItem } from '@/hooks/useActiveItem';
 defineProps<{
   tabsNames: string[]
 }>()
 
+const { activeElemIndex, highlightActiveElem } = useActiveItem()
+
 const emit = defineEmits<{
-  (e: 'activeTabIndex', activeItem: string): string
+  (e: 'activeTabIndex', activeItemIndex: number) : number
 }>()
-
-const activeElemIndex = ref<number>(0)
-
-const higlightActiveElem = (itemIndex:number) => {
-  activeElemIndex.value = itemIndex
-}
 </script>
 
 <template>
   <nav class="movie-nav movie-card__nav">
     <ul class="movie-nav__list">
-      <li class="movie-nav__item" v-for="(item, index) in tabsNames" :key="item + index" @click="higlightActiveElem(index)" :class="index === activeElemIndex ? 'active-tab' : ''">
+      <li class="movie-nav__item" v-for="(item, index) in tabsNames" :key="item + index" @click="highlightActiveElem(index)" :class="index === activeElemIndex ? 'active-tab' : ''">
         <a
           href="#"
           class="movie-nav__link"
-          @click.prevent="emit('activeTabIndex', item)"
+          @click.prevent="emit('activeTabIndex', index)"
           :data-index="item + '_' + index"
           >{{ item }}</a
         >

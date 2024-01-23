@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CatalogMovieCardItem from '@/blocks/CatalogMovieCardItem.vue'
+import CatalogMovieCardItem from '@/blocks/catalogMovie/CatalogMovieCardItem.vue'
 import type { CatalogMovieData } from '@/types/types'
 
 defineProps<{

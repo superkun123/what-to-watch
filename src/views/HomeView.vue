@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import CatalogMovieList from '@/blocks/CatalogMovieList.vue'
-import CatalogMovieFilter from '@/blocks/CatalogMovieFilter.vue'
+import CatalogMovieList from '@/blocks/catalogMovie/CatalogMovieList.vue'
+import CatalogMovieFilter from '@/blocks/catalogMovie/CatalogMovieFilter.vue'
 import { catalogFilterList } from '@/mocks/catalogFilterList'
 import { onMounted, ref, computed} from 'vue'
 import { useFilmsStore } from '@/stores/FilmsPreviewStore'

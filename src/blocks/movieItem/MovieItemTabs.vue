@@ -5,6 +5,7 @@ import MovieItemReviews from '@/blocks/movieItem/MovieItemReviews.vue'
 import BaseTabs from '@/components/BaseTabs.vue'
 import type { movieDescription, movieDetails, movieData } from '@/types/types'
 import { ref } from 'vue'
+import { useActiveItem } from '@/hooks/useActiveItem'
 
 const props = defineProps<{
   movieDataContent: movieData
@@ -28,23 +29,19 @@ const movieDetailsContent: movieDetails = {
 
 const tabsNames: string[] = ['overview', 'details', 'reviews']
 
-let activeTab = ref<string>(tabsNames[0])
-
-const activeItem = (item:string) => {
-  activeTab.value = item;
-}
+const { activeElemIndex, highlightActiveElem } = useActiveItem()
 </script>
 
 <template>
-  <BaseTabs :tabsNames="tabsNames" @activeTabIndex="activeItem">
+  <BaseTabs :tabsNames="tabsNames" @activeTabIndex="highlightActiveElem">
     <MovieItemDescription
-      v-if="activeTab === tabsNames[0]"
+      v-if="activeElemIndex === 0"
       :movieDescriptionContent="movieDescriptionContent"
     />
     <MovieItemDetails
-      v-if="activeTab === tabsNames[1]"
+      v-if="activeElemIndex === 1"
       :movieDetailsContent="movieDetailsContent"
     />
-    <MovieItemReviews v-if="activeTab === tabsNames[2]" />
+    <MovieItemReviews v-if="activeElemIndex === 2" />
   </BaseTabs>
 </template>

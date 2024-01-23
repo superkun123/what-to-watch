@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { DEFAULT_GENRE } from '@/consts';
+import { useActiveItem } from '@/hooks/useActiveItem';
 defineProps<{
   filterList: string[]
 }>()
 
-const activeElemIndex = ref<number>(-1)
-
-const highlightActiveElem = (itemIndex:number) => {
-  activeElemIndex.value = itemIndex
-}
+const { activeElemIndex, highlightActiveElem } = useActiveItem(-1)
 
 const emit = defineEmits<{
   (e: 'activeFilterItem', activeItem: string): string

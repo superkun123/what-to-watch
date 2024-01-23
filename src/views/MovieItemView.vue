@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { catalogMovieData } from '@/mocks/catalogMovieData'
-import CatalogMovieList from '@/blocks/CatalogMovieList.vue'
+import CatalogMovieList from '@/blocks/catalogMovie/CatalogMovieList.vue'
 import { useRoute } from 'vue-router'
 import MovieItemTabs from '@/blocks/movieItem/MovieItemTabs.vue'
 import { useFilmPageStore } from '@/stores/FilmPageStore'
