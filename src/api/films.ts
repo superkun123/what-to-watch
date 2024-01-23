@@ -8,3 +8,7 @@ export function getFilmsPromo () {
 export function getFilmsById (id:string | string[]) {
     return axios.get(`${API_URL}${APIRoute.Films}/${id}`)
 }
+
+export function getComments (id:string | string[]) {
+    return axios.get(`${API_URL}${APIRoute.Comments}/${id}`)
+}
