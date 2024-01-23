@@ -13,25 +13,25 @@ const store = useFilmsStore();
 
 onMounted(() => store.fetchFilmsPreview())
 
+
 const filteredFilmsByGenre = computed(() => {
-    if (filterGenre.value === DEFAULT_GENRE) {
-        return store.fetchedfilmsPreviewList
-    } else {
-        return store.fetchedfilmsPreviewList ? store.fetchedfilmsPreviewList.filter((elem) => elem.genre === filterGenre.value) : null
-    }
-}) 
+  if (filterGenre.value === DEFAULT_GENRE) {
+      return store.fetchedfilmsPreviewList
+  } else {
+      return store.fetchedfilmsPreviewList ? store.fetchedfilmsPreviewList.filter((elem) => elem.genre === filterGenre.value) : null
+  }
+})
 
 const filteredFilmsByGenreLength = computed(() => {
-    return filteredFilmsByGenre.value ?  filteredFilmsByGenre.value.length : 0
+  return filteredFilmsByGenre.value ?  filteredFilmsByGenre.value.length : 0
 })
 
 const shortListFilms = computed(() => filteredFilmsByGenre.value ? filteredFilmsByGenre.value.slice(0, filmsShowedCount.value) : null)
 
 
 function changeFilterGenre(genreTitle:string) {
-      filterGenre.value = genreTitle
+  filterGenre.value = genreTitle
 }
-
 
 function movieFilterChangeItem(item:string) {
   changeFilterGenre(item);
@@ -39,14 +39,12 @@ function movieFilterChangeItem(item:string) {
 }
 
 function updateShowedFilmsCount(reset:boolean = false) {
-    if (reset) {
-        return filmsShowedCount.value = DEFAULT_FILMS_COUNT
-    } else {
-        return filmsShowedCount.value = filmsShowedCount.value + DEFAULT_FILMS_COUNT
-    }
+  if (reset) {
+      return filmsShowedCount.value = DEFAULT_FILMS_COUNT
+  } else {
+      return filmsShowedCount.value = filmsShowedCount.value + DEFAULT_FILMS_COUNT
+  }
 }
-
-
 </script>
 
 <template>

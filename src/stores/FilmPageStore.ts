@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import { getFilmsById } from "@/api/films";
 import type { movieData } from "@/types/types";
 import { ref, shallowRef } from "vue";
-import type { AxiosResponse, AxiosError} from 'axios';
 import { useFilmsStore } from "./FilmsPreviewStore";
 import type { CatalogMovieData } from "@/types/types";
 
@@ -22,32 +21,30 @@ export const useFilmPageStore = defineStore('filmPageStore', () => {
         isError.value = false; 
     }
     
-    function fetchFilmData(id:string | string[]) {
-        getFilmsById(id).then((response:AxiosResponse) => {
-            filmData.value = response.data as movieData
-            filmGenre.value = filmData.value.genre
-            filmId.value = filmData.value.id
-        })
-        .catch((error:AxiosError) => {
-            isError.value = true;
-        })
-        .then(() => {
+    async function fetchFilmData(id:string | string[]) {
+        try {
+            try {
+                const response = await getFilmsById(id);
+                filmData.value = response.data as movieData;
+                filmGenre.value = filmData.value.genre;
+                filmId.value = filmData.value.id;
+            } catch (error) {
+                isError.value = true;
+            }
             getSimilarFilms();
-        })
-        .finally(() => {
-            isLoaded.value = true
-        })
+        } finally {
+            isLoaded.value = true;
+        }
     }
 
-    const getSimilarFilms = function()  {
+    const getSimilarFilms = async function()  {
         const filmsStore = useFilmsStore();
         if (!filmsStore.fetchedfilmsPreviewList) {
-            filmsStore.fetchFilmsPreview().then(() => {
-                similarFilmsData.value = filmsStore?.fetchedfilmsPreviewList?.filter((item) => item.genre === filmGenre.value && item.id !== filmId.value); 
-            })
-        } else {
-            similarFilmsData.value = filmsStore.fetchedfilmsPreviewList.filter((item) => item.genre === filmGenre.value && item.id !== filmId.value);
+            await filmsStore.fetchFilmsPreview()
         }
+        similarFilmsData.value = filmsStore && filmsStore.fetchedfilmsPreviewList ?
+        filmsStore.fetchedfilmsPreviewList.filter((item) => item.genre === filmGenre.value && item.id !== filmId.value) 
+        : null;
     }
 
     return {filmData, filmGenre, isLoaded, isError, similarFilmsData, fetchFilmData, getSimilarFilms, $reset}
