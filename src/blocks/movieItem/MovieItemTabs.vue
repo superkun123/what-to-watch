@@ -4,36 +4,36 @@ import MovieItemDescription from '@/blocks/movieItem/MovieItemDescription.vue'
 import MovieItemReviews from '@/blocks/movieItem/MovieItemReviews.vue'
 import BaseTabs from '@/components/BaseTabs.vue'
 import type { movieDescription, movieDetails, movieData } from '@/types/types'
-import { ref } from 'vue'
+import { movieItemTabsTitles } from '@/consts'
 import { useActiveItem } from '@/hooks/useActiveItem'
 
 const props = defineProps<{
   movieDataContent: movieData
 }>()
 
+const {rating, scoresCount, description, director, starring, runTime, genre, released} = props.movieDataContent
+
 const movieDescriptionContent: movieDescription = {
-  rating: props.movieDataContent.rating,
-  scoresCount: props.movieDataContent.scoresCount,
-  description: props.movieDataContent.description,
-  director: props.movieDataContent.director,
-  starring: props.movieDataContent.starring
+  rating,
+  scoresCount,
+  description,
+  director,
+  starring
 }
 
 const movieDetailsContent: movieDetails = {
-  director: props.movieDataContent.director,
-  starring: props.movieDataContent.starring,
-  runtime: props.movieDataContent.runTime,
-  genre: props.movieDataContent.genre,
-  release: props.movieDataContent.released
+  director,
+  starring,
+  runtime:runTime,
+  genre,
+  release:released
 }
-
-const tabsNames: string[] = ['overview', 'details', 'reviews']
 
 const { activeElemIndex, highlightActiveElem } = useActiveItem()
 </script>
 
 <template>
-  <BaseTabs :tabsNames="tabsNames" @activeTabIndex="highlightActiveElem">
+  <BaseTabs :tabsNames="movieItemTabsTitles" @activeTabIndex="highlightActiveElem">
     <MovieItemDescription
       v-if="activeElemIndex === 0"
       :movieDescriptionContent="movieDescriptionContent"
