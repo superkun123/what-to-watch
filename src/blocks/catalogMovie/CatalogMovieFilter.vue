@@ -15,12 +15,11 @@ const emit = defineEmits<{
 
 <template>
   <ul class="catalog__genres-list">
-    <li class="catalog__genres-item" @click="highlightActiveElem(-1)" :class="-1 === activeElemIndex ? 'active-tab' : ''" >
-      <a @click.prevent="emit('activeFilterItem', DEFAULT_GENRE)" href="#" class="catalog__genres-link"
-        >All genres</a
-      >
+    <li class="catalog__genres-item" @click="highlightActiveElem(-1)" :class="-1 === activeElemIndex ? 'active-tab' : ''">
+      <a @click.prevent="emit('activeFilterItem', DEFAULT_GENRE)" href="#" class="catalog__genres-link">All genres</a>
     </li>
-    <li class="catalog__genres-item" v-for="(item, index) in Object.values(filterList)" :key="item + index"  @click="highlightActiveElem(index)" :class="index === activeElemIndex ? 'active-tab' : ''">
+    <li class="catalog__genres-item" v-for="(item, index) in Object.values(filterList)" :key="item + index"
+      @click="highlightActiveElem(index)" :class="index === activeElemIndex ? 'active-tab' : ''">
       <a @click.prevent="emit('activeFilterItem', item)" href="#" class="catalog__genres-link">{{
         item.charAt(0) + item.slice(1)
       }}</a>
@@ -35,13 +34,12 @@ const emit = defineEmits<{
 
 .active-tab::after {
   content: '';
-    position: absolute;
-    z-index: 1;
-    left: 0;
-    right: 0;
-    height: 1px;
-    bottom: 0;
-    background: #d9cd8d;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  height: 1px;
+  bottom: 0;
+  background: #d9cd8d;
 }
-
 </style>

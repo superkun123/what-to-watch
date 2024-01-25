@@ -3,17 +3,17 @@ import MovieItemDetails from '@/blocks/movieItem/MovieItemDetails.vue'
 import MovieItemDescription from '@/blocks/movieItem/MovieItemDescription.vue'
 import MovieItemReviews from '@/blocks/movieItem/MovieItemReviews.vue'
 import BaseTabs from '@/components/BaseTabs.vue'
-import type { movieDescription, movieDetails, movieData } from '@/types/types'
+import type { MovieDescription, MovieDetails, MovieData } from '@/types/types'
 import { movieItemTabsTitles } from '@/consts'
 import { useActiveItem } from '@/hooks/useActiveItem'
 
 const props = defineProps<{
-  movieDataContent: movieData
+  movieDataContent: MovieData
 }>()
 
-const {rating, scoresCount, description, director, starring, runTime, genre, released} = props.movieDataContent
+const { rating, scoresCount, description, director, starring, runTime, genre, released } = props.movieDataContent
 
-const movieDescriptionContent: movieDescription = {
+const movieDescriptionContent: MovieDescription = {
   rating,
   scoresCount,
   description,
@@ -21,12 +21,12 @@ const movieDescriptionContent: movieDescription = {
   starring
 }
 
-const movieDetailsContent: movieDetails = {
+const movieDetailsContent: MovieDetails = {
   director,
   starring,
-  runtime:runTime,
+  runtime: runTime,
   genre,
-  release:released
+  release: released
 }
 
 const { activeElemIndex, highlightActiveElem } = useActiveItem()
@@ -34,14 +34,8 @@ const { activeElemIndex, highlightActiveElem } = useActiveItem()
 
 <template>
   <BaseTabs :tabsNames="movieItemTabsTitles" @activeTabIndex="highlightActiveElem">
-    <MovieItemDescription
-      v-if="activeElemIndex === 0"
-      :movieDescriptionContent="movieDescriptionContent"
-    />
-    <MovieItemDetails
-      v-if="activeElemIndex === 1"
-      :movieDetailsContent="movieDetailsContent"
-    />
+    <MovieItemDescription v-if="activeElemIndex === 0" :movieDescriptionContent="movieDescriptionContent" />
+    <MovieItemDetails v-if="activeElemIndex === 1" :movieDetailsContent="movieDetailsContent" />
     <MovieItemReviews v-if="activeElemIndex === 2" />
   </BaseTabs>
 </template>

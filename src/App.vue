@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import HeaderLayout from '@/layouts/HeaderLayout.vue'
 import FooterLayout from '@/layouts/FooterLayout.vue'
-import { Transition } from 'vue';
+
 const isLogin: boolean = false
 </script>
 

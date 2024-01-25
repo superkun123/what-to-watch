@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { movieDescription } from '@/types/types'
+import type { MovieDescription } from '@/types/types'
 import { computed } from 'vue';
 import { ratingTitle } from '@/consts';
 
 const props = defineProps<{
-  movieDescriptionContent: movieDescription
+  movieDescriptionContent: MovieDescription
 }>()
 
 const { rating } = props.movieDescriptionContent
 
 const getRatingTitle = computed(() => {
-  const ratingIndex = ratingTitle.length - (Math.round(rating/2))
+  const ratingIndex = ratingTitle.length - (Math.round(rating / 2))
   return ratingTitle[ratingIndex === ratingTitle.length ? ratingIndex - 1 : ratingIndex]
 })
 </script>

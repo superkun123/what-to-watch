@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { movieDetails } from '@/types/types'
+import type { MovieDetails } from '@/types/types'
 
 defineProps<{
-  movieDetailsContent: movieDetails
+  movieDetailsContent: MovieDetails
 }>()
 </script>
 
@@ -37,5 +37,3 @@ defineProps<{
     </p>
   </div>
 </template>
-
-<style scoped></style>

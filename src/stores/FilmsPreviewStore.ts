@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { getFilms, getFilmPromo } from "@/api/films";
-import type { CatalogMovieData, PromoFilm  } from "@/types/types";
+import type { CatalogMovieData, PromoFilm } from "@/types/types";
 import { ref, shallowRef } from "vue";
 
 export const useFilmsStore = defineStore('previewFilms', () => {
@@ -10,18 +10,18 @@ export const useFilmsStore = defineStore('previewFilms', () => {
     const isError = ref<boolean>(false)
     const promoIsLoaded = ref<boolean>(false)
     const promoIsError = ref<boolean>(false)
-    
-   async function fetchFilmsPreview()  {
+
+    async function fetchFilmsPreview() {
         try {
-           try {
-               const response = await getFilms();
-               fetchedfilmsPreviewList.value = response.data as CatalogMovieData;
-           } catch (error) {
-               isError.value = true;
-           }
-       } finally {
-           isLoaded.value = true;
-       }
+            try {
+                const response = await getFilms();
+                fetchedfilmsPreviewList.value = response.data as CatalogMovieData;
+            } catch (error) {
+                isError.value = true;
+            }
+        } finally {
+            isLoaded.value = true;
+        }
     }
 
     async function fetchFilmPromo() {
@@ -37,5 +37,5 @@ export const useFilmsStore = defineStore('previewFilms', () => {
         }
     }
 
-    return {fetchedfilmsPreviewList, filmPromoData, isLoaded, isError, promoIsLoaded, promoIsError, fetchFilmsPreview, fetchFilmPromo}
+    return { fetchedfilmsPreviewList, filmPromoData, isLoaded, isError, promoIsLoaded, promoIsError, fetchFilmsPreview, fetchFilmPromo }
 })

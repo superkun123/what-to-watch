@@ -29,7 +29,7 @@ export type VideoType = {
   videoFormat: string
 }
 
-export type movieData = {
+export type MovieData = {
   id: string
   name: string
   posterImage: string
@@ -47,7 +47,7 @@ export type movieData = {
   isFavorite: boolean
 }
 
-export type movieDescription = {
+export type MovieDescription = {
   rating: number
   scoresCount: number
   description: string
@@ -55,7 +55,7 @@ export type movieDescription = {
   starring: string[]
 }
 
-export type movieDetails = {
+export type MovieDetails = {
   director: string
   starring: string[]
   runtime: number

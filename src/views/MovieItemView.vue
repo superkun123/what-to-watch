@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router'
 import MovieItemTabs from '@/blocks/movieItem/MovieItemTabs.vue'
 import { useFilmPageStore } from '@/stores/FilmPageStore'
 import HomeMovieCard from '@/blocks/HomeMovieCard.vue'
-import { onBeforeMount, onBeforeUnmount, watch} from 'vue'
+import { onBeforeMount, onBeforeUnmount, watch } from 'vue'
 
 const route = useRoute()
 const store = useFilmPageStore();
@@ -12,7 +12,7 @@ onBeforeMount(() => store.fetchFilmData(<string>route.params.id))
 watch(() => route.params.id, () => {
   store.$reset();
   store.fetchFilmData(<string>route.params.id);
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
 })
 onBeforeUnmount(() => store.$reset())
 </script>
@@ -24,21 +24,15 @@ onBeforeUnmount(() => store.$reset())
       <HomeMovieCard :movie-data="store.filmData" class="movie-card--full" :isFilmPage="true" />
 
       <div class="movie-card__wrap movie-card__translate-top">
-          <div class="movie-card__info">
-            <div class="movie-card__poster movie-card__poster--big">
-              <img
-                :src="store.filmData.posterImage"
-                :alt="store.filmData.name"
-                width="218"
-                height="327"
-              />
-            </div>
-
-            <div class="movie-card__desc">
-              <MovieItemTabs :movieDataContent="store.filmData" />
-            </div>
+        <div class="movie-card__info">
+          <div class="movie-card__poster movie-card__poster--big">
+            <img :src="store.filmData.posterImage" :alt="store.filmData.name" width="218" height="327" />
+          </div>
+          <div class="movie-card__desc">
+            <MovieItemTabs :movieDataContent="store.filmData" />
           </div>
         </div>
+      </div>
 
       <div class="page-content">
         <section class="catalog catalog--like-this" v-if="store.similarFilmsData && store.similarFilmsData.length">
@@ -46,16 +40,15 @@ onBeforeUnmount(() => store.$reset())
           <CatalogMovieList :movieListData="store.similarFilmsData" />
         </section>
       </div>
+    </template>
 
-  </template>
+    <template v-else-if="!store.isLoaded && !store.isError">
+      <div>Загрузка</div>
+    </template>
 
-  <template v-else-if="!store.isLoaded && !store.isError">
-    <div>Загрузка</div>
-  </template>
-
-  <template v-else>
-    <h1>404</h1>
-  </template>
+    <template v-else>
+      <h1>404</h1>
+    </template>
 
   </main>
 </template>
