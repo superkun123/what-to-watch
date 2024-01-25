@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { DEFAULT_GENRE } from '@/consts';
 import { useActiveItem } from '@/hooks/useActiveItem';
+import type { FilterList } from '@/types/types';
 defineProps<{
-  filterList: string[]
+  filterList: FilterList
 }>()
 
 const { activeElemIndex, highlightActiveElem } = useActiveItem(-1)
@@ -19,9 +20,9 @@ const emit = defineEmits<{
         >All genres</a
       >
     </li>
-    <li class="catalog__genres-item" v-for="(item, index) in filterList" :key="item + index"  @click="highlightActiveElem(index)" :class="index === activeElemIndex ? 'active-tab' : ''">
+    <li class="catalog__genres-item" v-for="(item, index) in Object.values(filterList)" :key="item + index"  @click="highlightActiveElem(index)" :class="index === activeElemIndex ? 'active-tab' : ''">
       <a @click.prevent="emit('activeFilterItem', item)" href="#" class="catalog__genres-link">{{
-        item.charAt(0).toUpperCase() + item.slice(1)
+        item.charAt(0) + item.slice(1)
       }}</a>
     </li>
   </ul>

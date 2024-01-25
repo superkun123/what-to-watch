@@ -8,11 +8,10 @@ import { onBeforeMount, onBeforeUnmount, watch} from 'vue'
 
 const route = useRoute()
 const store = useFilmPageStore();
-console.log(route);
-onBeforeMount(() => store.fetchFilmData(route.params.id))
+onBeforeMount(() => store.fetchFilmData(<string>route.params.id))
 watch(() => route.params.id, () => {
   store.$reset();
-  store.fetchFilmData(route.params.id);
+  store.fetchFilmData(<string>route.params.id);
   window.scrollTo(0,0);
 })
 onBeforeUnmount(() => store.$reset())

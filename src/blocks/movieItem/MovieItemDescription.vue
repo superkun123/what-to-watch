@@ -10,8 +10,8 @@ const props = defineProps<{
 const { rating } = props.movieDescriptionContent
 
 const getRatingTitle = computed(() => {
-  const ratingIndex = ratingTitle.length - 1 - (Math.ceil(rating/2) - 1)
-  return ratingTitle[ratingIndex > 0 ? ratingIndex : 0]
+  const ratingIndex = ratingTitle.length - (Math.round(rating/2))
+  return ratingTitle[ratingIndex === ratingTitle.length ? ratingIndex - 1 : ratingIndex]
 })
 </script>
 

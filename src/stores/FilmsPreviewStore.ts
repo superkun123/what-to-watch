@@ -37,5 +37,5 @@ export const useFilmsStore = defineStore('previewFilms', () => {
         }
     }
 
-    return {fetchedfilmsPreviewList, filmPromoData, isLoaded, isError, fetchFilmsPreview, fetchFilmPromo}
+    return {fetchedfilmsPreviewList, filmPromoData, isLoaded, isError, promoIsLoaded, promoIsError, fetchFilmsPreview, fetchFilmPromo}
 })

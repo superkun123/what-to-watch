@@ -63,4 +63,13 @@ export type movieDetails = {
   release: number
 }
 
+export type FilterList = {
+  fantasy: string,
+  comedy: string,
+  crime: string,
+  action: string,
+  drama: string,
+  adventure: string
+}
+
 export type CatalogMovieData = CatalogMovieCard[]

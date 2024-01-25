@@ -8,27 +8,21 @@ import type { CatalogMovieData } from "@/types/types";
 export const useFilmPageStore = defineStore('filmPageStore', () => {
     const filmData = shallowRef<movieData | null>(null)
     const similarFilmsData = shallowRef<CatalogMovieData | null | undefined>(null)
-    const filmGenre = ref<string | null>(null)
-    const filmId = ref<string | null>(null)
     const isLoaded = ref<boolean>(false)
     const isError = ref<boolean>(false)
 
     function $reset() {
         filmData.value = null;
-        filmGenre.value = null;
         similarFilmsData.value = null;
-        filmId.value = null;
         isLoaded.value = false;
         isError.value = false; 
     }
     
-    async function fetchFilmData(id:string | string[]) {
+    async function fetchFilmData(id:string) {
         try {
             try {
                 const response = await getFilm(id);
                 filmData.value = response.data as movieData;
-                filmGenre.value = filmData.value.genre;
-                filmId.value = filmData.value.id;
             } catch (error) {
                 isError.value = true;
             }
@@ -44,7 +38,7 @@ export const useFilmPageStore = defineStore('filmPageStore', () => {
             await filmsStore.fetchFilmsPreview()
         }
         similarFilmsData.value = filmsStore && filmsStore.fetchedfilmsPreviewList ?
-        filmsStore.fetchedfilmsPreviewList.filter((item) => item.genre === filmGenre.value && item.id !== filmId.value) 
+        filmsStore.fetchedfilmsPreviewList.filter((item) => item.genre === filmData.value?.genre && item.id !== filmData.value.id) 
         : null;
     }
 
