@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getFilmsById } from "@/api/films";
+import { getFilm } from "@/api/films";
 import type { movieData } from "@/types/types";
 import { ref, shallowRef } from "vue";
 import { useFilmsStore } from "./FilmsPreviewStore";
@@ -17,6 +17,7 @@ export const useFilmPageStore = defineStore('filmPageStore', () => {
         filmData.value = null;
         filmGenre.value = null;
         similarFilmsData.value = null;
+        filmId.value = null;
         isLoaded.value = false;
         isError.value = false; 
     }
@@ -24,7 +25,7 @@ export const useFilmPageStore = defineStore('filmPageStore', () => {
     async function fetchFilmData(id:string | string[]) {
         try {
             try {
-                const response = await getFilmsById(id);
+                const response = await getFilm(id);
                 filmData.value = response.data as movieData;
                 filmGenre.value = filmData.value.genre;
                 filmId.value = filmData.value.id;
@@ -47,5 +48,5 @@ export const useFilmPageStore = defineStore('filmPageStore', () => {
         : null;
     }
 
-    return {filmData, filmGenre, isLoaded, isError, similarFilmsData, fetchFilmData, getSimilarFilms, $reset}
+    return {filmData, isLoaded, isError, similarFilmsData, fetchFilmData, getSimilarFilms, $reset}
 })

@@ -11,7 +11,10 @@ const filmsShowedCount = ref<number>(DEFAULT_FILMS_COUNT)
 const filterGenre = ref<string>(DEFAULT_GENRE)
 const store = useFilmsStore();
 
-onMounted(() => store.fetchFilmsPreview())
+onMounted(() => {
+  store.fetchFilmsPreview();
+  store.fetchFilmPromo();
+})
 
 
 const filteredFilmsByGenre = computed(() => {
@@ -50,7 +53,7 @@ function updateShowedFilmsCount(reset:boolean = false) {
 <template>
   <div>
     <main>
-    <HomeMovieCard />
+    <HomeMovieCard :movie-data="store.filmPromoData" />
     <div class="page-content">
       <section class="catalog">
         <h2 class="catalog__title visually-hidden">Catalog</h2>
