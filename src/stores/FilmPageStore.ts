@@ -26,7 +26,6 @@ export const useFilmPageStore = defineStore('filmPageStore', () => {
             } catch (error) {
                 isError.value = true;
             }
-            getSimilarFilms();
         } finally {
             isLoaded.value = true;
         }

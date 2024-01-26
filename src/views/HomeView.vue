@@ -4,7 +4,7 @@ import CatalogMovieFilter from '@/blocks/catalogMovie/CatalogMovieFilter.vue'
 import { catalogFilterList } from '@/mocks/catalogFilterList'
 import { onMounted, ref, computed } from 'vue'
 import { useFilmsStore } from '@/stores/FilmsPreviewStore'
-import HomeMovieCard from '@/blocks/HomeMovieCard.vue'
+import MovieCard from '@/blocks/MovieCard.vue'
 import { DEFAULT_FILMS_COUNT, DEFAULT_GENRE } from '@/consts'
 
 const filmsShowedCount = ref<number>(DEFAULT_FILMS_COUNT)
@@ -25,9 +25,7 @@ const filteredFilmsByGenre = computed(() => {
   }
 })
 
-const filteredFilmsByGenreLength = computed(() => {
-  return filteredFilmsByGenre.value ? filteredFilmsByGenre.value.length : 0
-})
+const filteredFilmsByGenreLength = computed(() => { return filteredFilmsByGenre.value ? filteredFilmsByGenre.value.length : 0})
 
 const shortListFilms = computed(() => filteredFilmsByGenre.value ? filteredFilmsByGenre.value.slice(0, filmsShowedCount.value) : null)
 
@@ -53,7 +51,7 @@ function updateShowedFilmsCount(reset: boolean = false) {
 <template>
   <div>
     <main>
-      <HomeMovieCard :movie-data="store.filmPromoData" />
+      <MovieCard :movie-data="store.filmPromoData" />
       <div class="page-content">
         <section class="catalog">
           <h2 class="catalog__title visually-hidden">Catalog</h2>

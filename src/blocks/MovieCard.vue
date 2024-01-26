@@ -29,7 +29,7 @@ defineProps<{
           </p>
 
           <div class="movie-card__buttons">
-            <RouterLink class="btn btn--play movie-card__button" :to="{ name: 'play', params: { id: '123' } }">
+            <RouterLink class="btn btn--play movie-card__button" :to="{ name: 'play', params: { id: movieData?.id } }" v-if="movieData?.id">
               <svg viewBox="0 0 19 19" width="19" height="19">
                 <use xlink:href="#play-s"></use>
               </svg>

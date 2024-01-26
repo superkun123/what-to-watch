@@ -3,12 +3,15 @@ import CatalogMovieList from '@/blocks/catalogMovie/CatalogMovieList.vue'
 import { useRoute } from 'vue-router'
 import MovieItemTabs from '@/blocks/movieItem/MovieItemTabs.vue'
 import { useFilmPageStore } from '@/stores/FilmPageStore'
-import HomeMovieCard from '@/blocks/HomeMovieCard.vue'
+import MovieCard from '@/blocks/MovieCard.vue'
 import { onBeforeMount, onBeforeUnmount, watch } from 'vue'
 
 const route = useRoute()
 const store = useFilmPageStore();
-onBeforeMount(() => store.fetchFilmData(<string>route.params.id))
+onBeforeMount(async () => {
+  await store.fetchFilmData(<string>route.params.id)
+  store.getSimilarFilms();
+})
 watch(() => route.params.id, () => {
   store.$reset();
   store.fetchFilmData(<string>route.params.id);
@@ -21,7 +24,7 @@ onBeforeUnmount(() => store.$reset())
   <main :style="{ backgroundColor: store?.filmData?.backgroundColor }">
 
     <template v-if="store.filmData && store.isLoaded">
-      <HomeMovieCard :movie-data="store.filmData" class="movie-card--full" :isFilmPage="true" />
+      <MovieCard :movie-data="store.filmData" class="movie-card--full" :isFilmPage="true" />
 
       <div class="movie-card__wrap movie-card__translate-top">
         <div class="movie-card__info">
