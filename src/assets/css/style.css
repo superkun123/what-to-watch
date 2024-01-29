@@ -1194,6 +1194,14 @@ main {
   text-align: right;
   font-size: 14px;
   color: #fff9d9;
+  white-space: nowrap;
+}
+
+.range {
+  width: 100%;
+  transform: translateY(15px);
+  opacity: 0;
+  cursor: pointer;
 }
 
 .player__full-screen {
@@ -1201,6 +1209,7 @@ main {
 }
 
 .player__toggler {
+  transition: all 0.1s;
   display: block;
   width: 17px;
   height: 17px;
@@ -1210,7 +1219,7 @@ main {
   cursor: pointer;
   position: absolute;
   left: 0;
-  top: 50%;
+  top: 90%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
