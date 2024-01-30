@@ -4,16 +4,23 @@ import CatalogMovieFilter from '@/blocks/catalogMovie/CatalogMovieFilter.vue'
 import { catalogFilterList } from '@/mocks/catalogFilterList'
 import { onMounted, ref, computed } from 'vue'
 import { useFilmsStore } from '@/stores/FilmsPreviewStore'
+import { useAuthStore } from '@/stores/AuthStore'
 import MovieCard from '@/blocks/MovieCard.vue'
 import { DEFAULT_FILMS_COUNT, DEFAULT_GENRE } from '@/consts'
 
 const filmsShowedCount = ref<number>(DEFAULT_FILMS_COUNT)
 const filterGenre = ref<string>(DEFAULT_GENRE)
 const store = useFilmsStore();
+const authStore = useAuthStore();
 
 onMounted(() => {
-  store.fetchFilmsPreview();
-  store.fetchFilmPromo();
+  if (!store.fetchedfilmsPreviewList) {
+    store.fetchFilmsPreview();
+  }
+
+  if (!store.filmPromoData) {
+    store.fetchFilmPromo();
+  }
 })
 
 
@@ -51,7 +58,7 @@ function updateShowedFilmsCount(reset: boolean = false) {
 <template>
   <div>
     <main>
-      <MovieCard :movie-data="store.filmPromoData" />
+      <MovieCard :movie-data="store.filmPromoData" :isAuth="authStore.isAuth" />
       <div class="page-content">
         <section class="catalog">
           <h2 class="catalog__title visually-hidden">Catalog</h2>

@@ -379,8 +379,14 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+.hold {
+  overflow-y: hidden;
+}
+
 main {
   display: block;
+  position: relative;
+  overflow-x: hidden;
 }
 
 .visually-hidden {
@@ -401,6 +407,13 @@ main {
   padding-top: 62px;
   width: 520px;
   margin: 0 auto;
+  position: absolute;
+  z-index: 10;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto;
+  top: 20%;
 }
 
 .add-review__text {
@@ -1361,6 +1374,16 @@ main {
 .review__author {
   font-style: normal;
   font-weight: bold;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
 }
 
 .review__date {

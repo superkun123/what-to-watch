@@ -4,6 +4,11 @@ import { RouterLink } from 'vue-router';
 defineProps<{
   movieData: PromoFilm | null
   isFilmPage?: boolean
+  isAuth: boolean
+}>()
+
+const emit = defineEmits<{
+  (e: 'toggleModal') : void
 }>()
 </script>
 
@@ -35,13 +40,13 @@ defineProps<{
               </svg>
               <span>Play</span>
             </RouterLink>
-            <button class="btn btn--list movie-card__button" type="button">
+            <button class="btn btn--list movie-card__button" type="button" v-if="isAuth">
               <svg viewBox="0 0 19 20" width="19" height="20">
                 <use xlink:href="#add"></use>
               </svg>
               <span>My list</span>
             </button>
-            <button class="btn btn--list movie-card__button" type="button" v-if="isFilmPage">
+            <button class="btn btn--list movie-card__button" type="button" v-if="isFilmPage && isAuth" @click="$emit('toggleModal')">
               <svg viewBox="0 0 19 20" width="19" height="20">
                 <use xlink:href="#add"></use>
               </svg>

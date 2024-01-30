@@ -11,6 +11,7 @@ export const movieItemTabsTitles = ['Overview', 'Details', 'Reviews']
 export const ratingTitle = ['Must watch', 'Good', 'Not great not terrible', 'terrible', 'horror has a face']
 
 export const API_URL = 'https://13.design.pages.academy/wtw';
+export const FAKE_LOGIN_URL = 'https://fakestoreapi.com/auth/login';
 export const REQUEST_TIMEOUT = 5000;
 export const DEFAULT_TAB = 'Overview';
 export const DEFAULT_GENRE = 'All';
