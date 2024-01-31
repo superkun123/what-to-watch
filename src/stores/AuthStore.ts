@@ -9,6 +9,7 @@ export const useAuthStore = defineStore('authStore', () => {
     const isLoaded = ref<boolean>(false)
     const isError = ref<boolean>(false)
     const isLoading = ref<boolean>(false);
+    const token = ref<string | null>(null)
 
     function $reset() {
         isAuth.value = false;
@@ -21,6 +22,7 @@ export const useAuthStore = defineStore('authStore', () => {
             try {
                 isLoading.value = true;
                 const response = await login(authHeader);
+                token.value = response.data.token
                 isAuth.value = true;
             } catch (error) {
                 isLoading.value = false;
@@ -32,5 +34,5 @@ export const useAuthStore = defineStore('authStore', () => {
         }
     }
 
-    return { isAuth, isLoaded, isError, isLoading, $reset, auth }
+    return { isAuth, isLoaded, isError, isLoading, token, $reset, auth }
 })

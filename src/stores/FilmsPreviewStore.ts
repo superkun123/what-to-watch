@@ -1,26 +1,31 @@
 import { defineStore } from "pinia";
 import { getFilms, getFilmPromo } from "@/api/films";
 import type { CatalogMovieData, PromoFilm } from "@/types/types";
-import { ref, shallowRef } from "vue";
+import { shallowRef } from "vue";
 
 export const useFilmsStore = defineStore('previewFilms', () => {
-    const fetchedfilmsPreviewList = shallowRef<CatalogMovieData | null>(null)
-    const filmPromoData = shallowRef<PromoFilm | null>(null)
-    const isLoaded = ref<boolean>(false)
-    const isError = ref<boolean>(false)
-    const promoIsLoaded = ref<boolean>(false)
-    const promoIsError = ref<boolean>(false)
+    const filmsListResponse = shallowRef({
+        data: <CatalogMovieData | null>(null),
+        isError: <boolean>(false),
+        isLoaded: <boolean>(false)
+    })
+
+    const filmPromoResponse = shallowRef({
+        data: <PromoFilm | null>(null),
+        isError: <boolean>(false),
+        isLoaded: <boolean>(false)
+    })
 
     async function fetchFilmsPreview() {
         try {
             try {
                 const response = await getFilms();
-                fetchedfilmsPreviewList.value = response.data as CatalogMovieData;
+                filmsListResponse.value.data = response.data as CatalogMovieData;
             } catch (error) {
-                isError.value = true;
+                filmsListResponse.value.isError = true;
             }
         } finally {
-            isLoaded.value = true;
+            filmsListResponse.value.isLoaded = true;
         }
     }
 
@@ -28,14 +33,14 @@ export const useFilmsStore = defineStore('previewFilms', () => {
         try {
             try {
                 const response = await getFilmPromo();
-                filmPromoData.value = response.data as PromoFilm;
+                filmPromoResponse.value.data = response.data as PromoFilm;
             } catch (error) {
-                promoIsError.value = true;
+                filmPromoResponse.value.isError = true;
             }
         } finally {
-            promoIsLoaded.value = true;
+            filmPromoResponse.value.isLoaded = true;
         }
     }
 
-    return { fetchedfilmsPreviewList, filmPromoData, isLoaded, isError, promoIsLoaded, promoIsError, fetchFilmsPreview, fetchFilmPromo }
+    return { filmsListResponse, filmPromoResponse, fetchFilmsPreview, fetchFilmPromo }
 })

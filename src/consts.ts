@@ -5,6 +5,7 @@ export enum APIRoute {
     Login = '/login',
     Logout = '/logout',
     Comments = '/comments',
+    SimilarFilms = '/similar'
 }
 
 export const movieItemTabsTitles = ['Overview', 'Details', 'Reviews']

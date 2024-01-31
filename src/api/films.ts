@@ -15,6 +15,10 @@ export function getFilm(id: string | string[]) {
     return instance.get(`${APIRoute.Films}/${id}`)
 }
 
+export function getSimilarFilms(id: string | string[]) {
+    return instance.get(`${APIRoute.Films}/${id}${APIRoute.SimilarFilms}`)
+}
+
 export function getFilmPromo() {
     return instance.get(APIRoute.Promo)
 }

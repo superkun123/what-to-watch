@@ -18,9 +18,9 @@ function toggleModalReview() {
   document.querySelector('body')?.classList.toggle('hold')
 }
 
-onBeforeMount(async () => {
-  await store.fetchFilmData(<string>route.params.id)
-  store.getSimilarFilms();
+onBeforeMount(() => {
+  store.fetchFilmData(<string>route.params.id)
+  store.fetchSimilarFilmsData(<string>route.params.id)
 })
 watch(() => route.params.id, () => {
   store.$reset();
@@ -31,31 +31,31 @@ onBeforeUnmount(() => store.$reset())
 </script>
 
 <template>
-  <main :style="{ backgroundColor: store?.filmData?.backgroundColor }">
+  <main :style="{ backgroundColor: store?.filmResponse.data?.backgroundColor }">
 
-    <template v-if="store.filmData && store.isLoaded">
-      <MovieCard :movie-data="store.filmData" :is-auth="authStore.isAuth" class="movie-card--full" :isFilmPage="true" @toggle-modal="toggleModalReview()" />
+    <template v-if="store.filmResponse.data && store.filmResponse.isLoaded">
+      <MovieCard :movie-data="store.filmResponse.data" :is-auth="authStore.isAuth" class="movie-card--full" :isFilmPage="true" @toggle-modal="toggleModalReview()" />
       <AddReviewModal :show-modal=showReviewModal @toggle-modal="toggleModalReview()" />
       <div class="movie-card__wrap movie-card__translate-top">
         <div class="movie-card__info">
           <div class="movie-card__poster movie-card__poster--big">
-            <img :src="store.filmData.posterImage" :alt="store.filmData.name" width="218" height="327" />
+            <img :src="store.filmResponse.data.posterImage" :alt="store.filmResponse.data.name" width="218" height="327" />
           </div>
           <div class="movie-card__desc">
-            <MovieItemTabs :movieDataContent="store.filmData" />
+            <MovieItemTabs :movieDataContent="store.filmResponse.data" />
           </div>
         </div>
       </div>
 
       <div class="page-content">
-        <section class="catalog catalog--like-this" v-if="store.similarFilmsData && store.similarFilmsData.length">
+        <section class="catalog catalog--like-this" v-if="store.similarFilmsResponse.data && store.similarFilmsResponse.data.length">
           <h2 class="catalog__title">More like this</h2>
-          <CatalogMovieList :movieListData="store.similarFilmsData" />
+          <CatalogMovieList :movieListData="store.similarFilmsResponse.data" />
         </section>
       </div>
     </template>
 
-    <template v-else-if="!store.isLoaded && !store.isError">
+    <template v-else-if="!store.similarFilmsResponse.isLoaded && !store.similarFilmsResponse.isError">
       <div>Загрузка</div>
     </template>
 

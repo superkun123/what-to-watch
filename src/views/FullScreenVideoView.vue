@@ -43,9 +43,9 @@ function playPause() {
 </script>
 
 <template>
-  <div class="player" v-if="store.filmData" ref="videoPlayerContainer">
-    <BaseVideo class="player__video" width="100%" :poster="store.filmData.posterImage" height="100%" video-format="video/mp4"
-      :src=store.filmData.videoLink @timeupdate="playTime = video?.currentTime" @ended="isPlaying = false"  @click="playPause()"  />
+  <div class="player" v-if="store.filmResponse.data" ref="videoPlayerContainer">
+    <BaseVideo class="player__video" width="100%" :poster="store.filmResponse.data.posterImage" height="100%" video-format="video/mp4"
+      :src=store.filmResponse.data.videoLink @timeupdate="playTime = video?.currentTime" @ended="isPlaying = false"  @click="playPause()"  />
 
     <RouterLink class="button player__exit" to="/">Exit</RouterLink>
 
@@ -73,7 +73,7 @@ function playPause() {
           <span>pause</span>
         </button>
         
-        <div class="player__name">{{ store.filmData.name }}</div>
+        <div class="player__name">{{ store.filmResponse.data.name }}</div>
 
         <button type="button" class="player__full-screen" @click="video?.requestFullscreen()">
           <svg viewBox="0 0 27 27" width="27" height="27">

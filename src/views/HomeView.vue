@@ -2,23 +2,25 @@
 import CatalogMovieList from '@/blocks/catalogMovie/CatalogMovieList.vue'
 import CatalogMovieFilter from '@/blocks/catalogMovie/CatalogMovieFilter.vue'
 import { catalogFilterList } from '@/mocks/catalogFilterList'
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref, computed, shallowRef } from 'vue'
 import { useFilmsStore } from '@/stores/FilmsPreviewStore'
 import { useAuthStore } from '@/stores/AuthStore'
 import MovieCard from '@/blocks/MovieCard.vue'
 import { DEFAULT_FILMS_COUNT, DEFAULT_GENRE } from '@/consts'
+import { storeToRefs } from 'pinia'
 
 const filmsShowedCount = ref<number>(DEFAULT_FILMS_COUNT)
 const filterGenre = ref<string>(DEFAULT_GENRE)
 const store = useFilmsStore();
 const authStore = useAuthStore();
 
-onMounted(() => {
-  if (!store.fetchedfilmsPreviewList) {
-    store.fetchFilmsPreview();
+onMounted(async () => {
+  if (!store.filmsListResponse.data) {
+    await store.fetchFilmsPreview();
+  
   }
 
-  if (!store.filmPromoData) {
+  if (!store.filmPromoResponse.data) {
     store.fetchFilmPromo();
   }
 })
@@ -26,9 +28,9 @@ onMounted(() => {
 
 const filteredFilmsByGenre = computed(() => {
   if (filterGenre.value === DEFAULT_GENRE) {
-    return store.fetchedfilmsPreviewList
+    return store.filmsListResponse.data
   } else {
-    return store.fetchedfilmsPreviewList ? store.fetchedfilmsPreviewList.filter((elem) => elem.genre === filterGenre.value) : null
+    return store.filmsListResponse.data ? store.filmsListResponse.data.filter((elem) => elem.genre === filterGenre.value) : null
   }
 })
 
@@ -58,14 +60,14 @@ function updateShowedFilmsCount(reset: boolean = false) {
 <template>
   <div>
     <main>
-      <MovieCard :movie-data="store.filmPromoData" :isAuth="authStore.isAuth" />
+      <MovieCard :movie-data="store.filmPromoResponse.data" :isAuth="authStore.isAuth" />
       <div class="page-content">
         <section class="catalog">
           <h2 class="catalog__title visually-hidden">Catalog</h2>
           <CatalogMovieFilter :filter-list="catalogFilterList" @active-filter-item="movieFilterChangeItem" />
-          <div v-if="!store.isLoaded">Загрузка</div>
+          <div v-if="!store.filmsListResponse.isLoaded">Загрузка</div>
           <CatalogMovieList :movie-list-data="shortListFilms"
-            v-else-if="!store.isError && store.fetchedfilmsPreviewList" />
+            v-else-if="!store.filmsListResponse.isError && store.filmsListResponse.data" />
           <div v-else>Ошибка</div>
           <div class="catalog__more" v-if="!(filteredFilmsByGenreLength < filmsShowedCount)">
             <button @click="updateShowedFilmsCount();" class="catalog__button" type="button">Show more</button>
