@@ -1,16 +1,16 @@
 import { defineStore } from "pinia";
 import { getFilms, getFilmPromo } from "@/api/films";
 import type { CatalogMovieData, PromoFilm } from "@/types/types";
-import { shallowRef } from "vue";
+import { shallowReactive } from "vue";
 
 export const useFilmsStore = defineStore('previewFilms', () => {
-    const filmsListResponse = shallowRef({
+    const filmsListResponse = shallowReactive({
         data: <CatalogMovieData | null>(null),
         isError: <boolean>(false),
         isLoaded: <boolean>(false)
     })
 
-    const filmPromoResponse = shallowRef({
+    const filmPromoResponse = shallowReactive({
         data: <PromoFilm | null>(null),
         isError: <boolean>(false),
         isLoaded: <boolean>(false)
@@ -20,12 +20,12 @@ export const useFilmsStore = defineStore('previewFilms', () => {
         try {
             try {
                 const response = await getFilms();
-                filmsListResponse.value.data = response.data as CatalogMovieData;
+                filmsListResponse.data = response.data as CatalogMovieData;
             } catch (error) {
-                filmsListResponse.value.isError = true;
+                filmsListResponse.isError = true;
             }
         } finally {
-            filmsListResponse.value.isLoaded = true;
+            filmsListResponse.isLoaded = true;
         }
     }
 
@@ -33,12 +33,12 @@ export const useFilmsStore = defineStore('previewFilms', () => {
         try {
             try {
                 const response = await getFilmPromo();
-                filmPromoResponse.value.data = response.data as PromoFilm;
+                filmPromoResponse.data = response.data as PromoFilm;
             } catch (error) {
-                filmPromoResponse.value.isError = true;
+                filmPromoResponse.isError = true;
             }
         } finally {
-            filmPromoResponse.value.isLoaded = true;
+            filmPromoResponse.isLoaded = true;
         }
     }
 

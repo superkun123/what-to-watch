@@ -1,40 +1,40 @@
 import { defineStore } from "pinia";
 import { getFilm, getSimilarFilms } from "@/api/films";
 import type { MovieData } from "@/types/types";
-import { shallowRef } from "vue";
+import { shallowReactive } from "vue";
 import type { CatalogMovieData } from "@/types/types";
 
 export const useFilmPageStore = defineStore('filmPageStore', () => {
 
-    const filmResponse = shallowRef({
+    const filmResponse = shallowReactive({
         data: <MovieData | null>(null),
         isError: <boolean>(false),
         isLoaded: <boolean>(false)
     })
 
-    const similarFilmsResponse = shallowRef({
+    const similarFilmsResponse = shallowReactive({
         data: <CatalogMovieData | null>(null),
         isError: <boolean>(false),
         isLoaded: <boolean>(false)
     })
 
     function $reset() {
-        filmResponse.value.data = null;
-        similarFilmsResponse.value.data = null;
-        filmResponse.value.isError, similarFilmsResponse.value.isError = false;
-        filmResponse.value.isLoaded, similarFilmsResponse.value.isLoaded = false;
+        filmResponse.data = null;
+        similarFilmsResponse.data = null;
+        filmResponse.isError, similarFilmsResponse.isError = false;
+        filmResponse.isLoaded, similarFilmsResponse.isLoaded = false;
     }
 
     async function fetchFilmData(id: string) {
         try {
             try {
                 const response = await getFilm(id);
-                filmResponse.value.data = response.data as MovieData;
+                filmResponse.data = response.data as MovieData;
             } catch (error) {
-                filmResponse.value.isError = true;
+                filmResponse.isError = true;
             }
         } finally {
-            filmResponse.value.isLoaded = true;
+            filmResponse.isLoaded = true;
         }
     }
 
@@ -42,12 +42,12 @@ export const useFilmPageStore = defineStore('filmPageStore', () => {
         try {
             try {
                 const response = await getSimilarFilms(id);
-                similarFilmsResponse.value.data = response.data as CatalogMovieData;
+                similarFilmsResponse.data = response.data as CatalogMovieData;
             } catch (error) {
-                similarFilmsResponse.value.isError = true;
+                similarFilmsResponse.isError = true;
             }
         } finally {
-            similarFilmsResponse.value.isLoaded = true;
+            similarFilmsResponse.isLoaded = true;
         }
     }
 

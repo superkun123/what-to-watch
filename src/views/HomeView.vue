@@ -2,12 +2,11 @@
 import CatalogMovieList from '@/blocks/catalogMovie/CatalogMovieList.vue'
 import CatalogMovieFilter from '@/blocks/catalogMovie/CatalogMovieFilter.vue'
 import { catalogFilterList } from '@/mocks/catalogFilterList'
-import { onMounted, ref, computed, shallowRef } from 'vue'
+import { onMounted, ref, computed, toRef } from 'vue'
 import { useFilmsStore } from '@/stores/FilmsPreviewStore'
 import { useAuthStore } from '@/stores/AuthStore'
 import MovieCard from '@/blocks/MovieCard.vue'
 import { DEFAULT_FILMS_COUNT, DEFAULT_GENRE } from '@/consts'
-import { storeToRefs } from 'pinia'
 
 const filmsShowedCount = ref<number>(DEFAULT_FILMS_COUNT)
 const filterGenre = ref<string>(DEFAULT_GENRE)
@@ -16,8 +15,7 @@ const authStore = useAuthStore();
 
 onMounted(async () => {
   if (!store.filmsListResponse.data) {
-    await store.fetchFilmsPreview();
-  
+    store.fetchFilmsPreview();
   }
 
   if (!store.filmPromoResponse.data) {
@@ -28,6 +26,7 @@ onMounted(async () => {
 
 const filteredFilmsByGenre = computed(() => {
   if (filterGenre.value === DEFAULT_GENRE) {
+    console.log(store.filmsListResponse.data);
     return store.filmsListResponse.data
   } else {
     return store.filmsListResponse.data ? store.filmsListResponse.data.filter((elem) => elem.genre === filterGenre.value) : null
