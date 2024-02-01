@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { getFilm, getSimilarFilms } from "@/api/films";
-import type { MovieData } from "@/types/types";
+import { getFilm, getSimilarFilms, getFilmReviews } from "@/api/films";
+import type { MovieData, Comments } from "@/types/types";
 import { shallowReactive } from "vue";
 import type { CatalogMovieData } from "@/types/types";
 
@@ -14,6 +14,12 @@ export const useFilmPageStore = defineStore('filmPageStore', () => {
 
     const similarFilmsResponse = shallowReactive({
         data: <CatalogMovieData | null>(null),
+        isError: <boolean>(false),
+        isLoaded: <boolean>(false)
+    })
+
+    const filmCommentsResponse = shallowReactive({
+        data: <Comments | null>(null),
         isError: <boolean>(false),
         isLoaded: <boolean>(false)
     })
@@ -51,5 +57,18 @@ export const useFilmPageStore = defineStore('filmPageStore', () => {
         }
     }
 
-    return { filmResponse, similarFilmsResponse, fetchFilmData, fetchSimilarFilmsData, $reset }
+    async function fetchFilmComments(id:string) {
+        try {
+            try {
+                const response = await getFilmReviews(id);
+                filmCommentsResponse.data = response.data as Comments;
+            } catch (error) {
+                filmCommentsResponse.isError = true;
+            }
+        } finally {
+            filmCommentsResponse.isLoaded = true;
+        }
+    }
+
+    return { filmResponse, similarFilmsResponse, filmCommentsResponse, fetchFilmData, fetchSimilarFilmsData, fetchFilmComments, $reset }
 })

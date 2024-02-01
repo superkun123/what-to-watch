@@ -1,101 +1,40 @@
+<script setup lang="ts">
+import { useFilmPageStore } from '@/stores/FilmPageStore';
+import { onBeforeMount } from 'vue';
+import { useRoute } from 'vue-router';
+import { commentsDateFormat } from '@/helpers/timeFormatter'
+
+const route = useRoute();
+const store = useFilmPageStore();
+onBeforeMount(() => {
+  if (!store.filmCommentsResponse.data) {
+    store.fetchFilmComments(<string>route.params.id);
+  }
+})
+</script>
+
 <template>
-  <div class="movie-card__reviews-col">
+  <div class="review-col" v-for="review in store.filmCommentsResponse.data">
     <div class="review">
       <blockquote class="review__quote">
         <p class="review__text">
-          Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European
-          kitsch of one of the director's funniest and most exquisitely designed movies in years.
+          {{ review.comment }}
         </p>
 
         <footer class="review__details">
-          <cite class="review__author">Kate Muir</cite>
-          <time class="review__date" datetime="2016-12-24">December 24, 2016</time>
+          <cite class="review__author">{{ review.user }}</cite>
+          <time class="review__date" :datetime="review.date">{{commentsDateFormat( review.date) }}</time>
         </footer>
       </blockquote>
 
-      <div class="review__rating">8,9</div>
-    </div>
-
-    <div class="review">
-      <blockquote class="review__quote">
-        <p class="review__text">
-          Anderson's films are too precious for some, but for those of us willing to lose ourselves
-          in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has
-          added a hint of gravitas to the mix, improving the recipe.
-        </p>
-
-        <footer class="review__details">
-          <cite class="review__author">Bill Goodykoontz</cite>
-          <time class="review__date" datetime="2015-11-18">November 18, 2015</time>
-        </footer>
-      </blockquote>
-
-      <div class="review__rating">8,0</div>
-    </div>
-
-    <div class="review">
-      <blockquote class="review__quote">
-        <p class="review__text">
-          I didn't find it amusing, and while I can appreciate the creativity, it's an hour and 40
-          minutes I wish I could take back.
-        </p>
-
-        <footer class="review__details">
-          <cite class="review__author">Amanda Greever</cite>
-          <time class="review__date" datetime="2015-11-18">November 18, 2015</time>
-        </footer>
-      </blockquote>
-
-      <div class="review__rating">8,0</div>
-    </div>
-  </div>
-  <div class="movie-card__reviews-col">
-    <div class="review">
-      <blockquote class="review__quote">
-        <p class="review__text">
-          The mannered, madcap proceedings are often delightful, occasionally silly, and here and
-          there, gruesome and/or heartbreaking.
-        </p>
-
-        <footer class="review__details">
-          <cite class="review__author">Matthew Lickona</cite>
-          <time class="review__date" datetime="2016-12-20">December 20, 2016</time>
-        </footer>
-      </blockquote>
-
-      <div class="review__rating">7,2</div>
-    </div>
-
-    <div class="review">
-      <blockquote class="review__quote">
-        <p class="review__text">
-          It is certainly a magical and childlike way of storytelling, even if the content is a
-          little more adult.
-        </p>
-
-        <footer class="review__details">
-          <cite class="review__author">Paula Fleri-Soler</cite>
-          <time class="review__date" datetime="2016-12-20">December 20, 2016</time>
-        </footer>
-      </blockquote>
-
-      <div class="review__rating">7,6</div>
-    </div>
-
-    <div class="review">
-      <blockquote class="review__quote">
-        <p class="review__text">
-          It is certainly a magical and childlike way of storytelling, even if the content is a
-          little more adult.
-        </p>
-
-        <footer class="review__details">
-          <cite class="review__author">Paula Fleri-Soler</cite>
-          <time class="review__date" datetime="2016-12-20">December 20, 2016</time>
-        </footer>
-      </blockquote>
-
-      <div class="review__rating">7,0</div>
+      <div class="review__rating">{{ review.rating }}</div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.review-col {
+  width: 45%;
+  padding:0 15px;
+}
+</style>

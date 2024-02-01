@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { login } from "@/api/films";
-import type { authHeader } from "@/types/types";
+import type { AuthHeader } from "@/types/types";
 
 
 export const useAuthStore = defineStore('authStore', () => {
@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('authStore', () => {
         isError.value = false;
     }
 
-    async function auth(authHeader:authHeader) {
+    async function auth(authHeader:AuthHeader) {
         try {
             try {
                 isLoading.value = true;

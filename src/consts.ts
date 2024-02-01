@@ -17,3 +17,5 @@ export const REQUEST_TIMEOUT = 5000;
 export const DEFAULT_TAB = 'Overview';
 export const DEFAULT_GENRE = 'All';
 export const DEFAULT_FILMS_COUNT = 8;
+export const monthsName = ["January","February","March","April","May","June","July",
+"August","September","October","November","December"];

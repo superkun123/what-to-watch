@@ -74,7 +74,17 @@ export type FilterList = {
 
 export type CatalogMovieData = CatalogMovieCard[]
 
-export type authHeader = {
+export type AuthHeader = {
   name: string
   password: string
 }
+
+export type Comment = {
+  id: string,
+  comment: string,
+  date: string,
+  rating: number,
+  user: string
+}
+
+export type Comments = Comment[];
