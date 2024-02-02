@@ -13,6 +13,7 @@ export const ratingTitle = ['Must watch', 'Good', 'Not great not terrible', 'ter
 
 export const API_URL = 'https://13.design.pages.academy/wtw';
 export const FAKE_LOGIN_URL = 'https://fakestoreapi.com/auth/login';
+export const FAKE_POSTCOMMENT_URL = 'https://jsonplaceholder.typicode.com/posts';
 export const REQUEST_TIMEOUT = 5000;
 export const DEFAULT_TAB = 'Overview';
 export const DEFAULT_GENRE = 'All';

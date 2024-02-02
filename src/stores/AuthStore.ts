@@ -23,6 +23,7 @@ export const useAuthStore = defineStore('authStore', () => {
                 isLoading.value = true;
                 const response = await login(authHeader);
                 token.value = response.data.token
+                localStorage.setItem("token", token.value ?? '');
                 isAuth.value = true;
             } catch (error) {
                 isLoading.value = false;
@@ -32,6 +33,10 @@ export const useAuthStore = defineStore('authStore', () => {
             isLoading.value = false;
             isLoaded.value = true;
         }
+    }
+
+    if(localStorage.getItem("token")) {
+        isAuth.value = true;
     }
 
     return { isAuth, isLoaded, isError, isLoading, token, $reset, auth }

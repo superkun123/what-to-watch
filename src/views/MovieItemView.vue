@@ -35,7 +35,7 @@ onBeforeUnmount(() => store.$reset())
 
     <template v-if="store.filmResponse.data && store.filmResponse.isLoaded">
       <MovieCard :movie-data="store.filmResponse.data" :is-auth="authStore.isAuth" class="movie-card--full" :isFilmPage="true" @toggle-modal="toggleModalReview()" />
-      <AddReviewModal :show-modal=showReviewModal @toggle-modal="toggleModalReview()" />
+      <AddReviewModal :show-modal=showReviewModal @toggle-modal="toggleModalReview()" v-if="authStore.isAuth" />
       <div class="movie-card__wrap movie-card__translate-top">
         <div class="movie-card__info">
           <div class="movie-card__poster movie-card__poster--big">

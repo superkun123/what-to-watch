@@ -2,11 +2,10 @@
 import HeaderLayout from '@/layouts/HeaderLayout.vue'
 import FooterLayout from '@/layouts/FooterLayout.vue'
 
-const isLogin: boolean = false
 </script>
 
 <template>
-  <header-layout :isLogin="isLogin" v-if="!$route.meta.hideHeader" />
+  <header-layout v-if="!$route.meta.hideHeader" />
   <router-view></router-view>
   <footer-layout v-if="!$route.meta.hideFooter" />
 </template>

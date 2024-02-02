@@ -1,5 +1,5 @@
 import axios from "axios"
-import { APIRoute, API_URL, FAKE_LOGIN_URL } from "@/consts"
+import { APIRoute, API_URL, FAKE_LOGIN_URL, FAKE_POSTCOMMENT_URL} from "@/consts"
 import type { AuthHeader } from "@/types/types";
 
 const instance = axios.create({
@@ -29,7 +29,14 @@ export function getFilmReviews(id: string | string[]) {
 
 export function login(authHeader:AuthHeader) {
     return instance.post(FAKE_LOGIN_URL, {
-        username: authHeader.name,
-        password: authHeader.password
+        username: "mor_2314",
+        password: "83r5^_"
+    })
+}
+
+export function postReview(text:string, rating:number) {
+    return instance.post(FAKE_POSTCOMMENT_URL, {
+        reviewText: text,
+        rating: rating
     })
 }

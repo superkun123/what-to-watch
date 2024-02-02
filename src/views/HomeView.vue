@@ -26,7 +26,6 @@ onMounted(async () => {
 
 const filteredFilmsByGenre = computed(() => {
   if (filterGenre.value === DEFAULT_GENRE) {
-    console.log(store.filmsListResponse.data);
     return store.filmsListResponse.data
   } else {
     return store.filmsListResponse.data ? store.filmsListResponse.data.filter((elem) => elem.genre === filterGenre.value) : null

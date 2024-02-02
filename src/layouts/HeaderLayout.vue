@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import AvatarUser from '@/components/BaseUserAvatar.vue'
-type Props = {
-  isLogin: boolean
-}
+import { useAuthStore } from '@/stores/AuthStore';
 
-defineProps<Props>()
+const store = useAuthStore();
+
 </script>
 
 <template>
@@ -19,9 +18,9 @@ defineProps<Props>()
       </div>
     </router-link>
 
-    <router-link to="/Login">
-      <AvatarUser v-if="isLogin" />
-      <slot v-else>
+  <AvatarUser v-if="store.isAuth" />
+    <router-link to="/Login" v-else>
+      <slot>
         <div class="user-block">
           <a href="#" class="user-block__link">Sign in</a>
         </div>
