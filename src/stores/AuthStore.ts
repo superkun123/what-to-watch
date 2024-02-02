@@ -35,7 +35,7 @@ export const useAuthStore = defineStore('authStore', () => {
         }
     }
 
-    if(localStorage.getItem("token")) {
+    if (localStorage.getItem("token")) {
         isAuth.value = true;
     }
 
