@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { login } from "@/api/films";
+import { login } from "@/api/api";
 import type { AuthHeader } from "@/types/types";
 
 

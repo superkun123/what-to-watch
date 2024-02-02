@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getFilms, getFilmPromo } from "@/api/films";
+import { getFilms, getFilmPromo } from "@/api/api";
 import type { CatalogMovieData, PromoFilm } from "@/types/types";
 import { shallowReactive } from "vue";
 

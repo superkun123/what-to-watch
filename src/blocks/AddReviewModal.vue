@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { postReview } from '@/api/films';
+import { postReview } from '@/api/api';
 const props = defineProps<{
     showModal: boolean
 }>();

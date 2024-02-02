@@ -7,15 +7,16 @@ import { secondsToMinutes } from '@/helpers/timeFormatter'
 
 const store = useFilmPageStore();
 const route = useRoute();
-onBeforeMount(async () => {
-  await store.fetchFilmData(<string>route.params.id)
-})
 const videoPlayerContainer = ref<HTMLDivElement | null>(null)
 const video = ref<HTMLVideoElement | null | undefined>(null)
 const isPlaying = ref<boolean>(false)
 const playTime = ref<number | undefined>(0)
 const duration = ref<number | undefined>(undefined)
 const value = ref<string>("0")
+
+onBeforeMount(async () => {
+  await store.fetchFilmData(<string>route.params.id)
+})
 
 watch(videoPlayerContainer, () => {
   video.value = videoPlayerContainer?.value?.querySelector('video');
@@ -26,13 +27,10 @@ watch(videoPlayerContainer, () => {
   });
 })
 
-
 function setTime() {
   if (video.value && playTime.value) {
     video.value.currentTime = parseInt(value.value);
     playTime.value = parseInt(value.value);
-    console.log(playTime.value)
-    console.log(video.value.currentTime)
   }
 }
 
